@@ -77,17 +77,16 @@ pub fn to_string(vec: &[Vec<char>; STANZAS], format_op: u8) -> String {
 }
 
 pub fn red_pattern(matrix: &[[char; SIZE]; SIZE]) -> ([Vec<char>; 4], [(usize, usize); 4]) {
-    let mut rng = rand::thread_rng();
+    let mut rng = rand::rng();
 
-    let mut row_i = rng.gen_range(0..5) * 7;
-    let mut col_i = rng.gen_range(0..5) * 7;
+    let mut row_i = rng.random_range(0..5) * 7;
+    let mut col_i = rng.random_range(0..5) * 7;
 
     if col_i == 14 && row_i == 14 {
-        let r_offset = if rng.gen_range(0..2) == 1 { 1 } else { -1 };
-        let c_offset = if rng.gen_range(0..2) == 1 { 1 } else { -1 };
-
-        let r_step = rng.gen_range(1..3) as isize;
-        let c_step = rng.gen_range(1..3) as isize;
+        let r_offset = if rng.random_range(0..2) == 1 { 1 } else { -1 };
+        let c_offset = if rng.random_range(0..2) == 1 { 1 } else { -1 };    
+        let r_step = rng.random_range(1..3) as isize;
+        let c_step = rng.random_range(1..3) as isize;
 
         row_i = (row_i as isize + r_offset * r_step) as usize;
         col_i = (col_i as isize + c_offset * c_step) as usize;
@@ -133,7 +132,7 @@ pub fn red_pattern(matrix: &[[char; SIZE]; SIZE]) -> ([Vec<char>; 4], [(usize, u
         }
         
         if !directions.is_empty() {
-            let (dr, dc) = directions[rng.gen_range(0..directions.len())];
+            let (dr, dc) = directions[rng.random_range(0..directions.len())];
             for _ in 0..7 {
                 println!("row: {}, col: {}", row_i, col_i);
                 chars[i].push(matrix[row_i][col_i]);
